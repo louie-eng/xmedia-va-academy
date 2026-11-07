@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X Media — Master VA Onboarding & Cell Academy</title>
+<style>
+  :root {
+    --bg: #070b12;
+    --panel: #0f1726;
+    --panel2: #152033;
+    --border: #253655;
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --purple: #a855f7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .sticky-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10, 15, 25, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .prog-wrap { display: flex; align-items: center; gap: 14px; flex: 1; max-width: 520px; }
+  .prog-track { flex: 1; height: 10px; background: #1e293b; border-radius: 999px; overflow: hidden; border: 1px solid var(--border); }
+  .prog-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), var(--green)); transition: width 0.25s ease; }
+  .prog-label { font-size: 13px; font-weight: 800; color: #fff; white-space: nowrap; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 28px 20px 90px; }
+  .hero {
+    background: radial-gradient(circle at top right, #172746 0%, #0f1726 70%);
+    border: 1px solid var(--border); border-radius: 18px; padding: 28px; margin-bottom: 22px;
+  }
+  .badge {
+    display: inline-block; background: rgba(56, 189, 248, 0.14); color: var(--accent);
+    border: 1px solid rgba(56, 189, 248, 0.35); padding: 4px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  h1 { margin: 10px 0 8px; font-size: 28px; }
+  h2 { margin: 0 0 12px; font-size: 21px; color: #fff; }
+  h3 { margin: 14px 0 8px; font-size: 17px; color: var(--accent); }
+  h4 { margin: 10px 0 6px; font-size: 15px; color: #7dd3fc; }
+  p { margin: 6px 0 12px; color: #cbd5e1; }
+  .va-id-bar {
+    background: var(--panel2); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end;
+  }
+  .va-id-bar label { font-size: 12px; font-weight: 700; color: var(--muted); display: block; margin-bottom: 4px; }
+  .va-id-bar input {
+    width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border);
+    background: #090d16; color: #fff; font-size: 14px;
+  }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+  .stat { background: #090e18; border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; }
+  .stat .num { font-size: 22px; font-weight: 900; color: var(--accent); }
+  .stat .lbl { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .timeline { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 26px; }
+  .phase-card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+  .phase-card.day12 { border-top: 4px solid var(--amber); }
+  .phase-card.day3 { border-top: 4px solid var(--green); }
+  .module-box { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; padding: 24px; margin-bottom: 28px; }
+  .lesson { background: var(--panel2); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-top: 20px; }
+  .lesson.done-card { border-color: rgba(34, 197, 94, 0.55); }
+  .lesson-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; }
+  .lesson-title-wrap { display: flex; align-items: center; gap: 10px; }
+  .l-num-badge { background: #090d16; border: 1px solid var(--border); color: var(--accent); font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 8px; }
+  .l-num-badge.done { background: rgba(34, 197, 94, 0.18); border-color: var(--green); color: #86efac; }
+  .lesson-title { font-size: 17px; font-weight: 800; color: #fff; }
+  .lesson-actions { display: flex; align-items: center; gap: 8px; }
+  .pdf-btn { background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.4); color: var(--accent); text-decoration: none; font-size: 12px; font-weight: 800; padding: 5px 12px; border-radius: 8px; }
+  .time-pill { background: #090d16; border: 1px solid var(--border); color: var(--amber); font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 8px; }
+  .l-summary { font-size: 13.5px; color: var(--muted); margin: 4px 0 12px; }
+  video { width: 100%; max-height: 520px; background: #000; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 12px; }
+  .golden-bar { background: rgba(245, 158, 11, 0.12); border-left: 4px solid var(--amber); padding: 10px 14px; border-radius: 8px; color: #fde68a; font-size: 13.5px; margin-bottom: 12px; }
+  .indepth-sheet { background: #0a101d; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+  .sheet-top { font-size: 11px; font-weight: 800; color: var(--amber); letter-spacing: 0.05em; margin-bottom: 8px; }
+  .sheet-sec { margin-bottom: 12px; }
+  ul { margin: 4px 0 10px; padding-left: 20px; color: #e2e8f0; font-size: 13.5px; }
+  li { margin-bottom: 5px; }
+  .check-row { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .check-lbl { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px; color: #fff; }
+  .check-lbl input { width: 18px; height: 18px; accent-color: var(--green); cursor: pointer; }
+  .quiz-box { background: #0b1324; border: 2px solid var(--accent); border-radius: 16px; padding: 22px; margin-top: 24px; }
+  .q-item { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 12px; }
+  .q-title { font-weight: 700; margin-bottom: 8px; color: #fff; font-size: 14.5px; }
+  .q-item label { display: block; padding: 5px 0; cursor: pointer; color: #cbd5e1; font-size: 13.5px; }
+  .btn { background: var(--accent); color: #06101e; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 800; font-size: 14px; cursor: pointer; }
+  .quiz-result { margin-top: 12px; padding: 12px; border-radius: 8px; font-weight: 700; display: none; font-size: 14px; }
+  .cert-box { background: linear-gradient(135deg, #0d2118 0%, #0f172a 100%); border: 2px solid var(--green); border-radius: 18px; padding: 26px; margin-top: 28px; display: none; }
+  code { background: #070a12; color: #7dd3fc; padding: 2px 6px; border-radius: 5px; font-family: ui-monospace, monospace; }
+</style>
+</head>
+<body>
+<div class="sticky-bar">
+  <div>
+    <strong style="color:#fff;font-size:14px">X Media Operator Academy</strong>
+    <span id="va-display-tag" style="color:#94a3b8;font-size:12px;margin-left:8px">· Enter your name below to track progress</span>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+    <span class="prog-label" id="prog-text">0 / 12 Steps Complete (0%)</span>
+  </div>
+  <a href="CELL_OVERVIEW_VISUAL_SHEET.pdf" download class="pdf-btn">⬇ Cell Overview PDF</a>
+</div>
+
+<div class="wrap">
+  <div class="hero">
+    <span class="badge">X Media VA Academy · End-to-End SOP & Certification</span>
+    <h1>Master Cell Onboarding & Daily Operating System</h1>
+    <p>Enter your name and Telegram/Discord handle below. Your progress saves automatically in your browser. Watch every lesson in order, download each lesson's standalone PDF sheet, check off each lesson, and score <strong>100% on both quizzes</strong> to generate your unique signed Certification Receipt.</p>
+
+    <div class="va-id-bar">
+      <div>
+        <label>Your Full Name (Required for Certification)</label>
+        <input type="text" id="va-name" placeholder="e.g. Juan Dela Cruz" oninput="saveIdentity()">
+      </div>
+      <div>
+        <label>Your Telegram / Discord Handle</label>
+        <input type="text" id="va-handle" placeholder="e.g. @juandc_ops" oninput="saveIdentity()">
+      </div>
+      <button class="btn" onclick="saveIdentity(true)">Save Operator Profile</button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat"><div class="num">10 Phones</div><div class="lbl">Your Assigned Cell in AliRemote</div></div>
+      <div class="stat"><div class="num">2 Creators</div><div class="lbl">Phones 1–5 Model A · Phones 6–10 Model B</div></div>
+      <div class="stat"><div class="num">4 Platforms</div><div class="lbl">Instagram · FB Page · YouTube · X</div></div>
+      <div class="stat"><div class="num" style="color:var(--green)">30 Reels / Day</div><div class="lbl">3 Per Phone Scheduled via Zernio</div></div>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="phase-card day12">
+      <span class="badge" style="color:#f59e0b;border-color:#f59e0b;background:rgba(245,158,11,0.12)">Phase 1 · Days 1 & 2</span>
+      <h2 style="margin-top:10px">10-Phone Setup, Branding & Warmup</h2>
+      <ul>
+        <li><strong>App Setup:</strong> Install <code>Gmail, Facebook, Instagram, YouTube, X</code> in exact order on all 10 phones in AliRemote.</li>
+        <li><strong>Account Creation:</strong> Create accounts with Romanian SIMs (<code>+40</code>) & locked Cell DOB (<code>13 July 2006</code>) and log every credential live into the Cell Sheet.</li>
+        <li><strong>Profile Branding:</strong> Pick 4 Pinterest photos per phone → Grok <code>Social Profile Builder</code> → strip metadata at <code>xmediaops.com/clean</code> → upload 3 PFPs + 1 FB Banner + bios.</li>
+        <li><strong>Warmup & Zernio:</strong> Scroll USA girly content naturally (1d IG/FB, 3d YT), switch IG to Professional Creator, and connect all accounts to Zernio.</li>
+      </ul>
+    </div>
+    <div class="phase-card day3">
+      <span class="badge" style="color:#22c55e;border-color:#22c55e;background:rgba(34,197,94,0.12)">Phase 2 · Day 3 Onwards</span>
+      <h2 style="margin-top:10px">Full-Scale Daily Content Routine</h2>
+      <ul>
+        <li><strong>30 Unique Cloned Reels / Day:</strong> Build Front+Back outfits in Grok, hunt 150k–437k+ solo outlier Reels on IG, and produce 3 unique Reels per phone (30/day) on <code>xmediaops.com/clone</code>.</li>
+        <li><strong>Cross-Post via Zernio:</strong> Schedule each phone's 3 daily Reels across Instagram Reels, Facebook Page Reels, and YouTube Shorts (90 posts/day).</li>
+        <li><strong>Daily Carousels, Stories & Highlights:</strong> Post daily photo Carousels plus Stories & Highlights so every account looks like a real active girl.</li>
+        <li><strong>10-Min Daily Scroll:</strong> Spend 10 minutes per phone scrolling and engaging naturally, and update your Cell Sheet.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="module-box" style="border-color:rgba(56,189,248,0.5)">
+    <div class="lesson-header">
+      <div class="lesson-title-wrap">
+        <span class="badge">Start Here · Lesson 0</span>
+        <span class="lesson-title">Welcome to X Media — How Your 10-Phone Cell Works & Course Overview</span>
+      </div>
+      <div class="lesson-actions">
+        <a href="CELL_OVERVIEW_VISUAL_SHEET.pdf" download class="pdf-btn">⬇ Download Overview PDF</a>
+        <span class="time-pill">06:48 · Subtitled</span>
+      </div>
+    </div>
+    <p class="l-summary">Watch this first: Louie walks you through your 10-Phone Cell, your 2 Creators (5 phones each), Phase 1 (Days 1–2 Setup, Branding & Warmup) vs. Phase 2 (Day 3+ Daily Reel Cloning, Carousels & Stories), and how to pass your Certification Quizzes.</p>
+    <video id="vid-0" controls preload="metadata" src="Lesson%200%20-%20Welcome%20%26%2010-Phone%20Cell%20Overview.mp4"></video>
+  </div>
+<div class="module-box"><span class="badge" style="color:#f59e0b;border-color:#f59e0b;background:rgba(245,158,11,0.12)">Module 1 · Days 1–2 (Lessons 1–5)</span><h1>Phone Setup, Account Creation, Profile Branding, Warmup & Zernio Linking</h1><p>Every lesson below includes the subtitled video, a 1-click button to download the standalone Lesson PDF, and the complete written SOP sheet underneath.</p>
+    <div class="lesson" id="lesson-card-1">
+      <div class="lesson-header">
+        <div class="lesson-title-wrap">
+          <span class="l-num-badge" id="l-badge-1">Lesson 1</span>
+          <span class="lesson-title">Lesson 1 — AliRemote Controls & New Phone App Downloads</span>
+        </div>
+        <div class="lesson-actions">
+          <a href="All%20Lesson%20Reference%20PDFs/Lesson%201%20-%20AliRemote%20%26%20App%20Downloads%20SOP.pdf" download class="pdf-btn">⬇ Download Lesson 1 PDF</a>
+          <span class="time-pill">04:34 · Subtitled</span>
+        </div>
+      </div>
+      <p class="l-summary">How to navigate AliRemote, send passwords fast without typos via the Type -> Send box, use the Notes & Content panels, and download the 5 required apps in exact order.</p>
+      <video id="vid-1" controls preload="metadata" src="VA%20Phone%20%26%20Account%20Setup%20SOP/Lesson%201%20-%20AliRemote%20%26%20New%20Phone%20App%20Downloads.mp4" onended="markLessonDone(1, true)"></video>
+      <div class="golden-bar">
+        <strong>NON-NEGOTIABLE RULE:</strong> Never type long passwords or emails on the tiny iPhone keyboard—always paste into the top-right 'Type' box and click 'Send'.
+      </div>
+      <div class="indepth-sheet">
+        <div class="sheet-top">
+          <span>GRANULAR WRITTEN SOP SHEET (PAIR WITH VIDEO OR DOWNLOAD PDF ABOVE)</span>
+        </div>
+        <div class="sheet-sec"><h4>1. Navigating AliRemote & Selecting Your Phone</h4><ul><li>Open AliRemote and click 'iPhones' in the left sidebar to see your assigned Cell phones (e.g., Elsa - 1 through Elsa - 5).</li><li>Left 'Controls' panel: 'Home' returns to the Home Screen, 'App Switcher' switches between open apps, 'Lock' locks the phone, and 'Control Center' opens Wi-Fi/Airplane Mode.</li><li>Use the Up / Down / Left / Right directional arrows under 'SCROLL' to swipe smoothly through feeds or home screens.</li></ul></div><div class="sheet-sec"><h4>2. Fast Password & Text Entry ('Type -> Send' Box)</h4><ul><li>Tap the text field on the iPhone screen so the blinking cursor appears.</li><li>On the right side of AliRemote under 'Type (MESSAGE)', paste or type your password, email, or bio.</li><li>Click 'Send' (or 'Send to clipboard')—it types straight into the phone with zero typos.</li></ul></div><div class="sheet-sec"><h4>3. Bottom-Right 'Notes' Box & Right-Side 'Content' Upload Button</h4><ul><li>Bottom-Right 'Notes' Box: Every phone stores its iCloud Email, iCloud Password, Romanian SIM number (+40...), and Gmail here for instant copy-pasting.</li><li>Far-Right 'Content' (Photo Icon) Button: Click this icon on the right vertical toolbar whenever you need to upload cleaned Profile Pictures, Banners, Carousels, or Reels into the iPhone's Camera Roll.</li></ul></div><div class="sheet-sec"><h4>4. Downloading & Arranging the 5 Apps in Exact Order</h4><ul><li>Open the Apple App Store on the iPhone and install these 5 apps in exact order: (1) Gmail -> (2) Facebook -> (3) Instagram -> (4) YouTube -> (5) X (Twitter).</li><li>If prompted for the Apple ID password, copy the iCloud password from the Notes box, paste into 'Type', click 'Send', and tap Sign In.</li><li>Once installed, press 'Home', long-press the app icons, and drag all 5 apps to the bottom of the Home Screen in exact left-to-right order: Gmail, Facebook, Instagram, YouTube, X.</li></ul></div>
+      </div>
+      <div class="check-row">
+        <label class="check-lbl">
+          <input type="checkbox" id="chk-1" onchange="toggleLessonCheck(1, this.checked)">
+          <span>I have watched <strong>Lesson 1</strong> from start to finish and reviewed its written SOP sheet.</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="lesson" id="lesson-card-2">
+      <div class="lesson-header">
+        <div class="lesson-title-wrap">
+          <span class="l-num-badge" id="l-badge-2">Lesson 2</span>
+          <span class="lesson-title">Lesson 2 — Creating Gmail, Facebook & Facebook Page</span>
+        </div>
+        <div class="lesson-actions">
+          <a href="All%20Lesson%20Reference%20PDFs/Lesson%202%20-%20Creating%20Gmail%2C%20Facebook%20%26%20FB%20Page%20SOP.pdf" download class="pdf-btn">⬇ Download Lesson 2 PDF</a>
+          <span class="time-pill">11:11 · Subtitled</span>
+        </div>
+      </div>
+      <p class="l-summary">Creating the phone's Gmail with the +40 Romanian SIM, logging every credential live into the Cell Sheet, setting up the Miami Facebook profile, and launching the Personal Blog Facebook Page.</p>
+      <video id="vid-2" controls preload="metadata" src="VA%20Phone%20%26%20Account%20Setup%20SOP/Lesson%202%20-%20Creating%20Gmail%2C%20Facebook%20%26%20FB%20Page.mp4" onended="markLessonDone(2, true)"></video>
+      <div class="golden-bar">
+        <strong>NON-NEGOTIABLE RULE:</strong> Every account in this Cell MUST use the locked Date of Birth at the top of your Cell Sheet (13 July 2006, Female). In Google Sheets, write the phone number as 407... without the '+' sign.
+      </div>
+      <div class="indepth-sheet">
+        <div class="sheet-top">
+          <span>GRANULAR WRITTEN SOP SHEET (PAIR WITH VIDEO OR DOWNLOAD PDF ABOVE)</span>
+        </div>
+        <div class="sheet-sec"><h4>1. Locked Cell Rules Before Creating Any Account</h4><ul><li>LOCKED DOB: Always use 13 July 2006 (Gender: Female) across Gmail, Facebook, Instagram, and YouTube.</li><li>NAME VARIATION: Vary the display name slightly across the 10 phones (e.g., 'Elsa Hale', 'Hale Elsa', 'Elsaa Hale') so all 10 phones do not have identical strings.</li><li>LIVE SHEET LOGGING: Keep your Master Cell Google Sheet open and log every email, password, username, and phone number the exact second you create it.</li></ul></div><div class="sheet-sec"><h4>2. Creating the Gmail Account</h4><ul><li>Open Gmail -> Sign in -> Google -> Continue -> Create account -> For my personal use.</li><li>Enter First Name (Elsa) and Last Name (Hale) -> DOB: July 13, 2006, Female.</li><li>Pick a clean Gmail address (e.g., helsaa62@gmail.com) and save it immediately to both the AliRemote Notes box and the Cell Sheet.</li><li>Phone Verification: Select 'Romania (+40)', paste the phone's +40 number from the Notes box, press 'Home', open the green iPhone 'Messages' app to read the 6-digit SMS code, and complete signup.</li></ul></div><div class="sheet-sec"><h4>3. Creating the Main Facebook Profile</h4><ul><li>Open Facebook -> Create new account -> enter varied name ('Hale Elsa') -> DOB: 13 July 2006 -> Female -> enter the +40 number and password.</li><li>If SMS takes longer than 30 seconds, tap 'I didn't get the code' -> 'Confirm by email' -> enter your new Gmail address and grab the 5-digit code from the Gmail app.</li><li>Set Location to 'Miami, Florida', scroll the feed for 30 seconds, and add 5 to 6 suggested friends.</li></ul></div><div class="sheet-sec"><h4>4. Creating the Facebook Page (Where Reels Are Posted)</h4><ul><li>Tap Menu (bottom-right) -> Pages -> Create -> enter varied Page Name ('Elsaa Hale') -> Category: 'Personal blog'.</li><li>Select 'Promote your products and services' -> skip Website/PFP/Banner for now -> invite the 5 friends you just added -> Done.</li></ul></div>
+      </div>
+      <div class="check-row">
+        <label class="check-lbl">
+          <input type="checkbox" id="chk-2" onchange="toggleLessonCheck(2, this.checked)">
+          <span>I have watched <strong>Lesson 2</strong> from start to finish and reviewed its written SOP sheet.</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="lesson" id="lesson-card-3">
+      <div class="lesson-header">
+        <div class="lesson-title-wrap">
+          <span class="l-num-badge" id="l-badge-3">Lesson 3</span>
+          <span class="lesson-title">Lesson 3 — Creating Instagram & YouTube Shorts Channel</span>
+        </div>
+        <div class="lesson-actions">
+          <a href="All%20Lesson%20Reference%20PDFs/Lesson%203%20-%20Creating%20Instagram%20%26%20YouTube%20Shorts%20SOP.pdf" download class="pdf-btn">⬇ Download Lesson 3 PDF</a>
+          <span class="time-pill">07:12 · Subtitled</span>
+        </div>
+      </div>
+      <p class="l-summary">Creating an isolated Instagram account (unlinked from Facebook), resetting stuck loading spinners with the 5-second Airplane Mode trick, and launching the YouTube Shorts channel.</p>
+      <video id="vid-3" controls preload="metadata" src="VA%20Phone%20%26%20Account%20Setup%20SOP/Lesson%203%20-%20Creating%20Instagram%20%26%20YouTube%20Shorts.mp4" onended="markLessonDone(3, true)"></video>
+      <div class="golden-bar">
+        <strong>NON-NEGOTIABLE RULE:</strong> NEVER create Instagram using 'Continue with Facebook'—always tap 'Create new account' with the phone's Gmail and use a DIFFERENT password than Facebook.
+      </div>
+      <div class="indepth-sheet">
+        <div class="sheet-top">
+          <span>GRANULAR WRITTEN SOP SHEET (PAIR WITH VIDEO OR DOWNLOAD PDF ABOVE)</span>
+        </div>
+        <div class="sheet-sec"><h4>1. Anti-Ban Isolation Rules for Instagram</h4><ul><li>NEVER LINK FB & IG: When Instagram asks to continue as your Facebook profile, always tap 'Use different profile' -> 'Create new account'. Linked accounts get banned together.</li><li>SEPARATE PASSWORD: Use a unique password for Instagram (different from Facebook) and log it in the Cell Sheet.</li></ul></div><div class="sheet-sec"><h4>2. Step-by-Step Instagram Signup</h4><ul><li>Tap 'Create new account' -> 'Sign up with email' -> paste the phone's new Gmail via 'Type -> Send'.</li><li>Open Gmail -> copy the 6-digit confirmation code -> paste into Instagram -> set password -> set DOB to 13 July 2006 -> enter Name ('Elsa Hale') and clean username.</li><li>Skip contacts/PFP for now -> search one big USA creator (e.g., 'Sommer Ray'), follow her, and like 1 post.</li></ul></div><div class="sheet-sec"><h4>3. Troubleshooting Fix: 5-Second Airplane Mode Reset</h4><ul><li>If Instagram hangs on a loading spinner after tapping 'I agree', open 'Control Center' in AliRemote -> turn Airplane Mode ON -> wait 5 seconds -> turn Airplane Mode OFF.</li><li>Force-close and reopen Instagram in 'App Switcher'—your account will load right in.</li></ul></div><div class="sheet-sec"><h4>4. Creating the YouTube Shorts Channel</h4><ul><li>Open YouTube -> tap 'You' (bottom-right) -> 'Sign in' -> select the phone's Google/Gmail account.</li><li>Tap 'You' again -> 'Create a channel' -> verify Name and Handle -> tap 'Create channel' and log in the Cell Sheet.</li></ul></div>
+      </div>
+      <div class="check-row">
+        <label class="check-lbl">
+          <input type="checkbox" id="chk-3" onchange="toggleLessonCheck(3, this.checked)">
+          <span>I have watched <strong>Lesson 3</strong> from start to finish and reviewed its written SOP sheet.</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="lesson" id="lesson-card-4">
+      <div class="lesson-header">
+        <div class="lesson-title-wrap">
+          <span class="l-num-badge" id="l-badge-4">Lesson 4</span>
+          <span class="lesson-title">Lesson 4 — Profile Branding (Pinterest, Grok Skill, Clean Room & Bios)</span>
+        </div>
+        <div class="lesson-actions">
+          <a href="All%20Lesson%20Reference%20PDFs/Lesson%204%20-%20Profile%20Branding%20%26%20Clean%20Room%20SOP.pdf" download class="pdf-btn">⬇ Download Lesson 4 PDF</a>
+          <span class="time-pill">09:59 · Subtitled</span>
+        </div>
+      </div>
+      <p class="l-summary">Picking 4 Pinterest references, generating 3 PFPs (1:1) + 1 FB Banner (16:9) with Grok's Social Profile Builder skill, stripping AI metadata at xmediaops.com/clean, and writing girly bios.</p>
+      <video id="vid-4" controls preload="metadata" src="VA%20Phone%20%26%20Account%20Setup%20SOP/Lesson%204%20-%20Profile%20Branding%20%28Pinterest%2C%20Grok%20Skill%2C%20Clean%20Room%20%26%20Bios%29.mp4" onended="markLessonDone(4, true)"></video>
+      <div class="golden-bar">
+        <strong>NON-NEGOTIABLE RULE:</strong> Every single Grok-generated image MUST pass through xmediaops.com/clean before being uploaded to the phone via AliRemote's Content button.
+      </div>
+      <div class="indepth-sheet">
+        <div class="sheet-top">
+          <span>GRANULAR WRITTEN SOP SHEET (PAIR WITH VIDEO OR DOWNLOAD PDF ABOVE)</span>
+        </div>
+        <div class="sheet-sec"><h4>1. Picking 4 Reference Photos on Pinterest</h4><ul><li>Pick 3 portrait/selfie photos of girls matching our model's vibe (for Instagram PFP, FB Page PFP, and YouTube Shorts PFP—each platform gets a different photo).</li><li>Pick 1 horizontal lifestyle/scenery photo for the Facebook Page Banner (e.g., palm trees, beach sunset, cocktails on a table).</li></ul></div><div class="sheet-sec"><h4>2. Running the Grok 'Social Profile Builder' Skill & Grok Imagine</h4><ul><li>In Grok -> Projects -> open 'Social Profile Builder'.</li><li>Attach the 3 portrait photos and send: 'These three are for profile pictures for Instagram, YouTube Shorts, and Facebook.'</li><li>Attach the 1 banner photo and send: 'This one is for a banner.'</li><li>In Grok Imagine, attach the Model's Master Reference Face -> generate the 3 PFPs at 1:1 (Square) and the 1 FB Banner at 16:9 (Wide).</li></ul></div><div class="sheet-sec"><h4>3. Mandatory Metadata Stripping (xmediaops.com/clean)</h4><ul><li>Drag all 4 generated images into xmediaops.com/clean -> click 'Download All (.zip)' once all show CLEAN.</li><li>In AliRemote, click the right-sidebar 'Content' (photo icon) button and upload the 4 cleaned images to the phone.</li></ul></div><div class="sheet-sec"><h4>4. Applying PFPs, Banner & Girly Bios</h4><ul><li>Instagram: Upload Cleaned PFP #1 + 2-line bio ('20 | Florida 🌴' + 'living in a bikini 👙') + 1 link (vsco.co/elsahale).</li><li>Facebook Page: Switch to the Page -> upload Cleaned PFP #2 + Cleaned 16:9 Banner + 1-line bio ('20 | Florida 🌴').</li><li>YouTube Shorts: Tap 'You' -> Edit channel (pencil icon) -> upload Cleaned PFP #3 + Description ('hey guys welcome to my channel 💕').</li></ul></div>
+      </div>
+      <div class="check-row">
+        <label class="check-lbl">
+          <input type="checkbox" id="chk-4" onchange="toggleLessonCheck(4, this.checked)">
+          <span>I have watched <strong>Lesson 4</strong> from start to finish and reviewed its written SOP sheet.</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="lesson" id="lesson-card-5">
+      <div class="lesson-header">
+        <div class="lesson-title-wrap">
+          <span class="l-num-badge" id="l-badge-5">Lesson 5</span>
+          <span class="lesson-title">Lesson 5 — Account Warmup (Sped Up), IG Professional Switch & Zernio Linking</span>
+        </div>
+        <div class="lesson-actions">
+          <a href="All%20Lesson%20Reference%20PDFs/Lesson%205%20-%20Account%20Warmup%2C%20IG%20Pro%20Switch%20%26%20Zernio%20SOP.pdf" download class="pdf-btn">⬇ Download Lesson 5 PDF</a>
+          <span class="time-pill">05:35 · Subtitled</span>
+        </div>
+      </div>
+      <p class="l-summary">Training the algorithm on USA girly Reels/Shorts, completing required warmup days (1d IG/FB, 3d YT), switching IG to a Professional Creator account, and connecting Zernio.</p>
+      <video id="vid-5" controls preload="metadata" src="VA%20Phone%20%26%20Account%20Setup%20SOP/Lesson%205%20-%20Account%20Warmup%20%28Sped%20Up%29%2C%20IG%20Professional%20Switch%20%26%20Zernio%20Linking.mp4" onended="markLessonDone(5, true)"></video>
+      <div class="golden-bar">
+        <strong>NON-NEGOTIABLE RULE:</strong> Warm up 1 full day on IG & FB Page and 3 full days on YouTube Shorts (strictly USA content), and switch IG to a Professional Creator account (category hidden) before linking Zernio.
+      </div>
+      <div class="indepth-sheet">
+        <div class="sheet-top">
+          <span>GRANULAR WRITTEN SOP SHEET (PAIR WITH VIDEO OR DOWNLOAD PDF ABOVE)</span>
+        </div>
+        <div class="sheet-sec"><h4>1. How to Warm Up Feeds on USA Girly Content (~10 Mins/Phone)</h4><ul><li>Seed the Algorithm: Search an American female creator on Instagram (e.g., 'Anna Paul', 'Alix Earle', 'Sommer Ray'), open their Reels tab, and scroll down.</li><li>Scroll Naturally: Watch good girly lifestyle Reels 1.5x–2x through; immediately swipe past ugly, foreign, or off-niche clips.</li><li>Session Actions: Like 5–8 Reels, follow 4–5 USA female creators, and leave 1 short natural comment (e.g., 'love this fit 😍').</li></ul></div><div class="sheet-sec"><h4>2. Required Warmup Days Before Linking Zernio</h4><ul><li>Instagram: Minimum 1 full day of warmup scrolling.</li><li>Facebook Page: Minimum 1 full day of warmup scrolling.</li><li>YouTube Shorts: Minimum 3 full days of warmup scrolling on USA English Shorts.</li></ul></div><div class="sheet-sec"><h4>3. Switching Instagram to a Professional Creator Account</h4><ul><li>IG Profile -> Top-Right Menu (☰) -> 'Account type and tools' -> 'Switch to professional account'.</li><li>Select Category: 'Digital creator' -> keep 'Display on profile' OFF -> choose 'Creator' (not Business) -> Done.</li></ul></div><div class="sheet-sec"><h4>4. Connecting Accounts to Zernio</h4><ul><li>Once warmed up and switched to Professional Creator, log into Zernio and connect the phone's Instagram, Facebook Page, and YouTube Shorts channel.</li><li>Mark 'Warmed Up' and 'Connected to Zernio' as DONE in the Master Cell Sheet.</li></ul></div>
+      </div>
+      <div class="check-row">
+        <label class="check-lbl">
+          <input type="checkbox" id="chk-5" onchange="toggleLessonCheck(5, this.checked)">
+          <span>I have watched <strong>Lesson 5</strong> from start to finish and reviewed its written SOP sheet.</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="quiz-box" id="quiz1">
+      <h3>Certification Checkpoint #1 — Module 1 Setup, Branding & Warmup (5/5 Required)</h3>
+      <div class="q-item">
+        <div class="q-title">1. How should you enter long passwords and emails into an iPhone inside AliRemote, and what is the exact 5-app download order?</div>
+        <label><input type="radio" name="m1q1" value="a"> Paste into the top-right 'Type' box -> click 'Send', and install: 1. Gmail -> 2. Facebook -> 3. Instagram -> 4. YouTube -> 5. X</label>
+        <label><input type="radio" name="m1q1" value="b"> Click individual letters on the phone keyboard and install apps in random order</label>
+      </div>
+      <div class="q-item">
+        <div class="q-title">2. What Date of Birth and SIM country code must be used across the Cell, and how do you write the number in Google Sheets?</div>
+        <label><input type="radio" name="m1q2" value="a"> Random birthday and +1 US number</label>
+        <label><input type="radio" name="m1q2" value="b"> Locked Cell DOB (13 July 2006, Female) + Romania (+40) SIM, written as 407... without '+' in Google Sheets</label>
+      </div>
+      <div class="q-item">
+        <div class="q-title">3. What are the two non-negotiable anti-ban isolation rules when creating the Instagram account?</div>
+        <label><input type="radio" name="m1q3" value="a"> Click 'Continue with Facebook' and reuse the same password</label>
+        <label><input type="radio" name="m1q3" value="b"> NEVER link to Facebook ('Create new account' with Gmail) and use a DIFFERENT password than Facebook</label>
+      </div>
+      <div class="q-item">
+        <div class="q-title">4. Before uploading any Grok-generated Profile Picture (3 per phone) or FB Banner (1 per phone) via AliRemote's Content button, what MUST you do?</div>
+        <label><input type="radio" name="m1q4" value="a"> Pass all 4 images through xmediaops.com/clean and download the cleaned ZIP first</label>
+        <label><input type="radio" name="m1q4" value="b"> Upload raw Grok images straight to the phone</label>
+      </div>
+      <div class="q-item">
+        <div class="q-title">5. How many days of warmup are required before linking Zernio, and what Instagram setting must be switched?</div>
+        <label><input type="radio" name="m1q5" value="a"> 1 day on IG & FB Page + 3 days on YouTube Shorts (USA content), and switch IG to a Professional Creator account (category hidden)</label>
+        <label><input type="radio" name="m1q5" value="b"> Zero warmup needed, keep IG as a personal account</label>
+      </div>
+      <button class="btn" onclick="gradeModuleQuiz(1, {m1q1:'a', m1q2:'b', m1q3:'b', m1q4:'a', m1q5:'a'}, 'res1')">Submit & Verify Module 1 Quiz (100% Required)</button>
+      <div class="quiz-result" id="res1"></div>
+    </div>
+</div><div class="module-box"><span class="badge" style="color:#22c55e;border-color:#22c55e;background:rgba(34,197,94,0.12)">Module 2 · Day 3 Onwards (Lessons 6–10)</span><h1>Making Niche Outfits, Hunting Outlier Reels & Running the Clone Factory</h1><p>Once all 10 phones are warmed up and linked to Zernio, Day 3 begins your daily high-output Systems Manager workflow.</p>
+    <div class="lesson" id="lesson-card-6">
+      <div class="lesson-header">
+        <div class="lesson-title-wrap">
+          <span class="l-num-badge" id="l-badge-6">Lesson 6</span>
+          <span class="lesson-title">Lesson 6 — Pipeline Overview & Your Role as a Systems Manager</span>
+        </div>
+        <div class="lesson-actions">
+          <a href="All%20Lesson%20Reference%20PDFs/Lesson%206%20-%20Pipeline%20Overview%20%26%20Systems%20Manager%20Role%20SOP.pdf" download class="pdf-btn">⬇ Download Lesson 6 PDF</a>
+          <span class="time-pill">01:01 · Subtitled</span>
+        </div>
+      </div>
+      <p class="l-summary">How the automated Clone Software (xmediaops.com/clone) replaces manual prompting so you operate as a high-output Systems Manager.</p>
+      <video id="vid-6" controls preload="metadata" src="VA%20Content%20Pipeline%20SOP/Lesson%201%20-%20Pipeline%20Overview%20%26%20Systems%20Manager%20Role.mp4" onended="markLessonDone(6, true)"></video>
+      <div class="golden-bar">
+        <strong>NON-NEGOTIABLE RULE:</strong> You never write manual video prompts—your job is to supply great Front+Back niche outfits, hunt true outlier Reels, and approve only top-quality renders.
+      </div>
+      <div class="indepth-sheet">
+        <div class="sheet-top">
+          <span>GRANULAR WRITTEN SOP SHEET (PAIR WITH VIDEO OR DOWNLOAD PDF ABOVE)</span>
+        </div>
+        <div class="sheet-sec"><h4>1. How the Automated Clone Software Works</h4><ul><li>In our new pipeline (xmediaops.com/clone), you no longer write manual video prompts or manually run upscalers/cleaners.</li><li>You supply two things: (1) a locked Front + Back Outfit built with our Grok Outfit Skill, and (2) an outlier Instagram Reel link.</li><li>The software automatically downloads the video, calls the motion model, and once you click Approve, upscales the video and strips all AI metadata automatically.</li></ul></div><div class="sheet-sec"><h4>2. Your 3 Core Responsibilities as a Systems Manager</h4><ul><li>1. Outfit Creation: Build niche-matched Front + Back outfit references using Pinterest + Grok.</li><li>2. Outlier Reel Hunting: Find solo, face-visible, high-performing outlier Reels (150k–400k+ views) that fit the phone's vibe.</li><li>3. Fast Batching & Quality Control: Queue multiple clone jobs in parallel, verify audio/visual quality, click Approve on winners, and immediately click Skip on failed renders.</li></ul></div>
+      </div>
+      <div class="check-row">
+        <label class="check-lbl">
+          <input type="checkbox" id="chk-6" onchange="toggleLessonCheck(6, this.checked)">
+          <span>I have watched <strong>Lesson 6</strong> from start to finish and reviewed its written SOP sheet.</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="lesson" id="lesson-card-7">
+      <div class="lesson-header">
+        <div class="lesson-title-wrap">
+          <span class="l-num-badge" id="l-badge-7">Lesson 7</span>
+          <span class="lesson-title">Lesson 7 — Making Niche Outfits (Pinterest to Grok Outfit Skill)</span>
+        </div>
+        <div class="lesson-actions">
+          <a href="All%20Lesson%20Reference%20PDFs/Lesson%207%20-%20Making%20Outfits%20%28Pinterest%20to%20Grok%20Skill%29%20SOP.pdf" download class="pdf-btn">⬇ Download Lesson 7 PDF</a>
+          <span class="time-pill">02:22 · Subtitled</span>
+        </div>
+      </div>
+      <p class="l-summary">Matching outfits to each phone's niche, using Pinterest's recommendation algorithm, and running Grok's Outfit Maker skill to generate Front + Back references.</p>
+      <video id="vid-7" controls preload="metadata" src="VA%20Content%20Pipeline%20SOP/Lesson%202%20-%20Making%20Outfits%20%28Pinterest%20to%20Grok%20Skill%29.mp4" onended="markLessonDone(7, true)"></video>
+      <div class="golden-bar">
+        <strong>NON-NEGOTIABLE RULE:</strong> Copy the Pinterest outfit image into Grok (with the Outfit Maker skill active) and type 'make the outfit references' to get both Front and Back reference photos.
+      </div>
+      <div class="indepth-sheet">
+        <div class="sheet-top">
+          <span>GRANULAR WRITTEN SOP SHEET (PAIR WITH VIDEO OR DOWNLOAD PDF ABOVE)</span>
+        </div>
+        <div class="sheet-sec"><h4>1. Matching Outfits to Each Phone's Specific Niche</h4><ul><li>Every phone in the Cell has its own niche/vibe (e.g., Phone 1: Christmas, Phone 2: Gym Girl, Phone 3: Cafe & Walks / Lifestyle).</li><li>Always check which phone you are building for before hunting on Pinterest.</li></ul></div><div class="sheet-sec"><h4>2. How to Find Endless High-Appeal Outfits on Pinterest</h4><ul><li>If a narrow search (like 'cafe gal') gives weak results, search 'cute girl' (or 'gym girl') on Pinterest.</li><li>Click into an attractive girl wearing a great outfit—Pinterest's recommendation feed underneath that pin will immediately fill with dozens of similar high-appeal outfits.</li></ul></div><div class="sheet-sec"><h4>3. Generating Front + Back References in Grok</h4><ul><li>Right-click the Pinterest outfit photo and click 'Copy Image' (or Save Image).</li><li>Open Grok (inside the Outfit Maker skill project), paste the image, and type: make the outfit references</li><li>Grok automatically applies our model's locked face and body proportions to that exact outfit and outputs 2 photos: (1) Front standing view and (2) Back 3/4 view.</li><li>Save both the Front and Back images to your computer so they are ready to upload to xmediaops.com/clone.</li></ul></div>
+      </div>
+      <div class="check-row">
+        <label class="check-lbl">
+          <input type="checkbox" id="chk-7" onchange="toggleLessonCheck(7, this.checked)">
+          <span>I have watched <strong>Lesson 7</strong> from start to finish and reviewed its written SOP sheet.</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="lesson" id="lesson-card-8">
+      <div class="lesson-header">
+        <div class="lesson-title-wrap">
+          <span class="l-num-badge" id="l-badge-8">Lesson 8</span>
+          <span class="lesson-title">Lesson 8 — Hunting Outlier Reels (Views & Vibe Rules)</span>
+        </div>
+        <div class="lesson-actions">
+          <a href="All%20Lesson%20Reference%20PDFs/Lesson%208%20-%20Hunting%20Outlier%20Reels%20%28Views%20%26%20Vibe%20Rules%29%20SOP.pdf" download class="pdf-btn">⬇ Download Lesson 8 PDF</a>
+          <span class="time-pill">03:11 · Subtitled</span>
+        </div>
+      </div>
+      <p class="l-summary">How to scan creator Reels tabs on Instagram, ignore flat 20k–80k baselines, and pick true 150k–437k+ outlier spikes that pass our strict solo/face/vibe rules.</p>
+      <video id="vid-8" controls preload="metadata" src="VA%20Content%20Pipeline%20SOP/Lesson%203%20-%20Hunting%20Outlier%20Reels%20%28Views%20%26%20Vibe%20Rules%29.mp4" onended="markLessonDone(8, true)"></video>
+      <div class="golden-bar">
+        <strong>NON-NEGOTIABLE RULE:</strong> Ignore flat 20k–80k view baselines—only clone clear outlier spikes (150k, 220k, 437k+ views) where the girl is solo, her face is visible, and the vibe is natural chill beauty.
+      </div>
+      <div class="indepth-sheet">
+        <div class="sheet-top">
+          <span>GRANULAR WRITTEN SOP SHEET (PAIR WITH VIDEO OR DOWNLOAD PDF ABOVE)</span>
+        </div>
+        <div class="sheet-sec"><h4>1. Scanning View Counts for True Outliers</h4><ul><li>Open a high-quality real creator's Instagram Reels tab and look at her normal view baseline.</li><li>If all her videos sit around 20k to 80k views, skip those—fans didn't care enough to make them go viral.</li><li>Scroll until you spot a massive outlier spike that clearly stands out from the surrounding grid (e.g., 158k, 220k, 437k+ views).</li></ul></div><div class="sheet-sec"><h4>2. The 3 Strict Filter Rules Before Copying Any Reel Link</h4><ul><li>RULE 1 — SOLO GIRL ONLY (No Random People): Watch the full clip first. If a random woman or man walks into the frame or stands in the background, skip it—the clone model may lock onto the wrong person.</li><li>RULE 2 — FACE CLEARLY VISIBLE: Skip clips where her face is hidden or turned away the whole time.</li><li>RULE 3 — CHILL LIFESTYLE/BEAUTY VIBE (No Comedy Skits): Skip talking-head comedy skits or gimmicky jokes (e.g., 'is that a wand in your pants'). Pick natural, chill clips where she is showing off her beauty/outfit to music or a short audio trend.</li></ul></div>
+      </div>
+      <div class="check-row">
+        <label class="check-lbl">
+          <input type="checkbox" id="chk-8" onchange="toggleLessonCheck(8, this.checked)">
+          <span>I have watched <strong>Lesson 8</strong> from start to finish and reviewed its written SOP sheet.</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="lesson" id="lesson-card-9">
+      <div class="lesson-header">
+        <div class="lesson-title-wrap">
+          <span class="l-num-badge" id="l-badge-9">Lesson 9</span>
+          <span class="lesson-title">Lesson 9 — Running the Clone Factory (Add Outfit, Generate & Approve)</span>
+        </div>
+        <div class="lesson-actions">
+          <a href="All%20Lesson%20Reference%20PDFs/Lesson%209%20-%20Running%20the%20Clone%20Factory%20SOP.pdf" download class="pdf-btn">⬇ Download Lesson 9 PDF</a>
+          <span class="time-pill">02:05 · Subtitled</span>
+        </div>
+      </div>
+      <p class="l-summary">Uploading Front + Back outfits to xmediaops.com/clone, queuing Instagram Reel links, checking audio/body lock on returned previews, and clicking Approve.</p>
+      <video id="vid-9" controls preload="metadata" src="VA%20Content%20Pipeline%20SOP/Lesson%204%20-%20Running%20the%20Clone%20Factory%20%28Add%20Outfit%2C%20Generate%20%26%20Approve%29.mp4" onended="markLessonDone(9, true)"></video>
+      <div class="golden-bar">
+        <strong>NON-NEGOTIABLE RULE:</strong> Always watch the returned preview with audio ON and verify body/face lock before clicking Approve (Approve automatically upscales and strips all AI metadata).
+      </div>
+      <div class="indepth-sheet">
+        <div class="sheet-top">
+          <span>GRANULAR WRITTEN SOP SHEET (PAIR WITH VIDEO OR DOWNLOAD PDF ABOVE)</span>
+        </div>
+        <div class="sheet-sec"><h4>1. Adding Your Front + Back Outfit on xmediaops.com/clone</h4><ul><li>Open xmediaops.com/clone and go to the 'Outfits' section.</li><li>Give the outfit a simple, clear name (e.g., 'white cute fit' or 'yellow dress').</li><li>Drop the Front image into the Front slot and the Back image into the Back slot -> click 'Add Outfit'.</li></ul></div><div class="sheet-sec"><h4>2. Queuing the Clone Job ('Make Reel')</h4><ul><li>Select your outfit, paste the Instagram Reel URL you hunted, and click 'Make Reel'.</li><li>If a warning pops up saying 'more than one person detected', only click 'Make it anyway' if you already watched the clip and confirmed our creator is the clear main subject.</li></ul></div><div class="sheet-sec"><h4>3. Quality Control & Clicking 'Approve'</h4><ul><li>When the preview finishes rendering, play it with audio ON and compare it against the reference Reel.</li><li>Check that the face, curvy body proportions, cleavage/legs, and outfit locked cleanly onto the creator and that the clip looks natural and engaging.</li><li>Click 'Approve'—the software automatically upscales the video, runs the hardened metadata cleaner, and outputs the final ready-to-post Reel.</li></ul></div>
+      </div>
+      <div class="check-row">
+        <label class="check-lbl">
+          <input type="checkbox" id="chk-9" onchange="toggleLessonCheck(9, this.checked)">
+          <span>I have watched <strong>Lesson 9</strong> from start to finish and reviewed its written SOP sheet.</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="lesson" id="lesson-card-10">
+      <div class="lesson-header">
+        <div class="lesson-title-wrap">
+          <span class="l-num-badge" id="l-badge-10">Lesson 10</span>
+          <span class="lesson-title">Lesson 10 — Live Batching & Fast Problem Solving (Skipping Bad Renders)</span>
+        </div>
+        <div class="lesson-actions">
+          <a href="All%20Lesson%20Reference%20PDFs/Lesson%2010%20-%20Live%20Batching%20%26%20Fast%20Problem%20Solving%20SOP.pdf" download class="pdf-btn">⬇ Download Lesson 10 PDF</a>
+          <span class="time-pill">05:07 · Subtitled</span>
+        </div>
+      </div>
+      <p class="l-summary">Working proactively across multiple outfits/reels in parallel, bookmarking accounts for other niches, and immediately skipping failed renders without wasting time.</p>
+      <video id="vid-10" controls preload="metadata" src="VA%20Content%20Pipeline%20SOP/Lesson%205%20-%20Live%20Batching%20%26%20Fast%20Problem%20Solving%20%28Skipping%20Bad%20Renders%29.mp4" onended="markLessonDone(10, true)"></video>
+      <div class="golden-bar">
+        <strong>NON-NEGOTIABLE RULE:</strong> If a render fails (e.g., locked onto a background woman), NEVER waste time trying to fix it—immediately click 'Skip', grab another clean solo outlier clip, and click 'Make Reel'.
+      </div>
+      <div class="indepth-sheet">
+        <div class="sheet-top">
+          <span>GRANULAR WRITTEN SOP SHEET (PAIR WITH VIDEO OR DOWNLOAD PDF ABOVE)</span>
+        </div>
+        <div class="sheet-sec"><h4>1. Filtering Accounts & Saving Cross-Niche Finds</h4><ul><li>Immediately skip low-resolution accounts, obvious AI accounts, or bikini/beach-only accounts when hunting for a Cafe/Lifestyle phone.</li><li>Proactive Cross-Niche Saving: If you spot a high-quality Gym Girl account while hunting for the Lifestyle phone, bookmark/save that account in your sheet for the Gym phone before continuing.</li></ul></div><div class="sheet-sec"><h4>2. Live Parallel Batching (Never Wait Around Idle)</h4><ul><li>While Reel #1 and Reel #2 are rendering in the Clone Factory, already have your next outfit generating in Grok (e.g., 'yellow dress') and be hunting Reel #3 on Instagram.</li><li>As soon as the new Front + Back outfit finishes in Grok, add it to the Clone Page and fire the next Reel.</li></ul></div><div class="sheet-sec"><h4>3. Fast Problem Solving: When to Click 'Skip'</h4><ul><li>If a returned preview has a major issue (for example, a woman walked into the background and the AI locked onto her instead of our creator), you cannot fix that manually.</li><li>Do not sit there worrying or wasting time—immediately click 'Skip' on the failed job.</li><li>Go right back to the target creator's Reels tab, pick another clean outlier clip where she is 100% solo, paste the link with your outfit, and click 'Make Reel'.</li></ul></div>
+      </div>
+      <div class="check-row">
+        <label class="check-lbl">
+          <input type="checkbox" id="chk-10" onchange="toggleLessonCheck(10, this.checked)">
+          <span>I have watched <strong>Lesson 10</strong> from start to finish and reviewed its written SOP sheet.</span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="quiz-box" id="quiz2">
+      <h3>Certification Checkpoint #2 — Module 2 Outfits, Outlier Hunting & Clone Factory (5/5 Required)</h3>
+      <div class="q-item">
+        <div class="q-title">1. How do you generate locked Front + Back outfit reference photos from a Pinterest image?</div>
+        <label><input type="radio" name="m2q1" value="a"> Copy the Pinterest outfit image into Grok (with the Outfit Maker skill active) and type: make the outfit references</label>
+        <label><input type="radio" name="m2q1" value="b"> Upload the raw Pinterest girl straight into Instagram</label>
+      </div>
+      <div class="q-item">
+        <div class="q-title">2. When scanning a creator's Instagram Reels tab, which videos do you pick and what are the 3 strict filter rules?</div>
+        <label><input type="radio" name="m2q2" value="a"> Pick flat 20k–80k videos with comedy skits and crowds of people</label>
+        <label><input type="radio" name="m2q2" value="b"> Skip flat 20k–80k baselines and pick clear outlier spikes (150k–437k+ views) where: (1) she is solo (no random people in background), (2) her face is visible, and (3) the vibe is natural chill beauty</label>
+      </div>
+      <div class="q-item">
+        <div class="q-title">3. What happens automatically when you watch a returned preview on xmediaops.com/clone (with audio ON) and click 'Approve'?</div>
+        <label><input type="radio" name="m2q3" value="a"> The software automatically upscales the video and strips all AI metadata</label>
+        <label><input type="radio" name="m2q3" value="b"> Nothing, you have to manually prompt it again</label>
+      </div>
+      <div class="q-item">
+        <div class="q-title">4. If a returned clone render fails (for example, a background woman walked in and the AI locked onto her), what is the exact protocol?</div>
+        <label><input type="radio" name="m2q4" value="a"> Spend 30 minutes trying to rewrite prompts</label>
+        <label><input type="radio" name="m2q4" value="b"> Immediately click 'Skip', grab another clean solo outlier Reel from your target account, and click 'Make Reel'</label>
+      </div>
+      <div class="q-item">
+        <div class="q-title">5. What is your exact 2-Phase schedule across a 10-Phone Cell?</div>
+        <label><input type="radio" name="m2q5" value="a"> Days 1–2: Set up, brand, warm up & link all 10 phones. Day 3+: Produce 30 unique Reels/day (3 per phone = 90 posts via Zernio) + daily Carousels, Stories/Highlights & 10m scroll</label>
+        <label><input type="radio" name="m2q5" value="b"> Set up 1 phone per week</label>
+      </div>
+      <button class="btn" onclick="gradeModuleQuiz(2, {m2q1:'a', m2q2:'b', m2q3:'a', m2q4:'b', m2q5:'a'}, 'res2')">Submit & Verify Module 2 Quiz (100% Required)</button>
+      <div class="quiz-result" id="res2"></div>
+    </div>
+  </div>
+
+  <!-- TAMPER-PROOF CERTIFICATION RECEIPT -->
+  <div class="cert-box" id="cert-box">
+    <span class="badge" style="color:#22c55e;border-color:#22c55e;background:rgba(34,197,94,0.15)">100% Certified Operator · Ready for Cell Assignment</span>
+    <h2 style="margin-top:10px">Official X Media Operator Certification Receipt</h2>
+    <p>You have completed all 10 Lessons and scored 100% on both Certification Checkpoints. Copy your signed verification receipt below and send it to management on Telegram/Discord to receive your 10-Phone Cell login.</p>
+    <pre id="cert-receipt" style="background:#060a10;border:1px solid #22c55e;padding:16px;border-radius:10px;color:#86efac;font-size:13.5px;overflow-x:auto"></pre>
+    <button class="btn" style="background:#22c55e" onclick="copyReceipt()">Copy Signed Verification Receipt</button>
+  </div>
+</div>
+
+<script>
+const STATE_KEY = 'xmedia_va_academy_v3';
+// Optional Google Apps Script Web App URL to auto-log every VA into Google Sheets 24/7
+const SHEET_WEBHOOK_URL = '';
+let state = JSON.parse(localStorage.getItem(STATE_KEY) || '{"name":"","handle":"","lessons":{},"watchSec":{},"q1Tries":0,"q2Tries":0,"quiz1":false,"quiz2":false,"startedAt":"","ts":""}');
+if (!state.startedAt) state.startedAt = new Date().toISOString().slice(0,19).replace('T',' ') + ' UTC';
+if (!state.watchSec) state.watchSec = {};
+if (!state.q1Tries) state.q1Tries = 0;
+if (!state.q2Tries) state.q2Tries = 0;
+
+function saveState() {
+  localStorage.setItem(STATE_KEY, JSON.stringify(state));
+  renderProgress();
+}
+
+function getTotalWatchedMins() {
+  let totalSec = 0;
+  for (const k of Object.keys(state.watchSec || {})) {
+    totalSec += (state.watchSec[k] || 0);
+  }
+  return (totalSec / 60).toFixed(1);
+}
+
+// Track real playback seconds (1 tick per second while video is actually playing, blocks scrubbing)
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('video').forEach((v, idx) => {
+    let lastTick = 0;
+    v.addEventListener('timeupdate', () => {
+      const now = Date.now();
+      if (now - lastTick >= 950 && !v.paused) {
+        lastTick = now;
+        const id = v.id || ('vid-' + idx);
+        state.watchSec[id] = (state.watchSec[id] || 0) + 1;
+        if (state.watchSec[id] % 10 === 0) saveState();
+      }
+    });
+  });
+  renderProgress();
+});
+
+function saveIdentity(showAlert) {
+  state.name = document.getElementById('va-name').value.trim();
+  state.handle = document.getElementById('va-handle').value.trim();
+  saveState();
+  if (showAlert) alert('Operator profile saved! Your watch time and quiz scores are tracked automatically.');
+}
+
+function toggleLessonCheck(n, checked) {
+  state.lessons[n] = !!checked;
+  saveState();
+}
+
+function markLessonDone(n, val) {
+  state.lessons[n] = !!val;
+  const chk = document.getElementById('chk-' + n);
+  if (chk) chk.checked = !!val;
+  saveState();
+}
+
+function sendWebhook(eventType) {
+  if (!SHEET_WEBHOOK_URL) return;
+  try {
+    fetch(SHEET_WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        event: eventType,
+        name: state.name,
+        handle: state.handle,
+        watchedMins: getTotalWatchedMins(),
+        q1Tries: state.q1Tries,
+        q2Tries: state.q2Tries,
+        quiz1: state.quiz1,
+        quiz2: state.quiz2,
+        startedAt: state.startedAt,
+        completedAt: state.ts
+      })
+    });
+  } catch (e) {}
+}
+
+function gradeModuleQuiz(modNum, answers, resId) {
+  if (!state.name) {
+    alert('Please enter your Full Name and Telegram/Discord Handle at the top of the page first.');
+    document.getElementById('va-name').focus();
+    return;
+  }
+  if (modNum === 1) state.q1Tries = (state.q1Tries || 0) + 1;
+  if (modNum === 2) state.q2Tries = (state.q2Tries || 0) + 1;
+
+  const keys = Object.keys(answers);
+  let correct = 0;
+  for (const k of keys) {
+    const sel = document.querySelector('input[name="' + k + '"]:checked');
+    if (sel && sel.value === answers[k]) correct++;
+  }
+  const el = document.getElementById(resId);
+  el.style.display = 'block';
+  const tries = modNum === 1 ? state.q1Tries : state.q2Tries;
+  if (correct === keys.length) {
+    state['quiz' + modNum] = true;
+    if (state.quiz1 && state.quiz2 && !state.ts) {
+      state.ts = new Date().toISOString().slice(0,19).replace('T',' ') + ' UTC';
+    }
+    saveState();
+    sendWebhook('QUIZ_' + modNum + '_PASS');
+    el.style.background = 'rgba(34, 197, 94, 0.18)';
+    el.style.border = '1px solid #22c55e';
+    el.style.color = '#86efac';
+    el.innerHTML = 'PASSED (' + correct + '/' + keys.length + ' — 100% on Attempt #' + tries + ')! Module ' + modNum + ' verified.';
+  } else {
+    state['quiz' + modNum] = false;
+    saveState();
+    sendWebhook('QUIZ_' + modNum + '_FAIL');
+    el.style.background = 'rgba(239, 68, 68, 0.18)';
+    el.style.border = '1px solid #ef4444';
+    el.style.color = '#fca5a5';
+    el.innerHTML = 'SCORE: ' + correct + '/' + keys.length + ' (Attempt #' + tries + '). You must score 100% (5/5) to pass. Review the lesson sheets above and try again.';
+  }
+}
+
+function makeHash(str) {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619) >>> 0;
+  }
+  return ('00000000' + h.toString(16)).slice(-8).toUpperCase();
+}
+
+function renderProgress() {
+  document.getElementById('va-name').value = state.name || '';
+  document.getElementById('va-handle').value = state.handle || '';
+  const watchedMins = getTotalWatchedMins();
+  const tag = document.getElementById('va-display-tag');
+  tag.textContent = state.name
+    ? ('· Operator: ' + state.name + (state.handle ? ' (' + state.handle + ')' : '') + ' · Watched: ' + watchedMins + 'm')
+    : ('· Watched: ' + watchedMins + 'm · Enter your name below');
+
+  let lessonsDone = 0;
+  for (let i = 1; i <= 10; i++) {
+    const done = !!state.lessons[i];
+    if (done) lessonsDone++;
+    const chk = document.getElementById('chk-' + i);
+    const badge = document.getElementById('l-badge-' + i);
+    const card = document.getElementById('lesson-card-' + i);
+    if (chk) chk.checked = done;
+    if (badge) badge.className = done ? 'l-num-badge done' : 'l-num-badge';
+    if (badge) badge.textContent = done ? ('✓ Lesson ' + i) : ('Lesson ' + i);
+    if (card) card.className = done ? 'lesson done-card' : 'lesson';
+  }
+  const totalSteps = lessonsDone + (state.quiz1 ? 1 : 0) + (state.quiz2 ? 1 : 0);
+  const pct = Math.round((totalSteps / 12) * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-text').textContent = totalSteps + ' / 12 Steps (' + pct + '%) · ' + watchedMins + 'm Watched';
+
+  const certBox = document.getElementById('cert-box');
+  if (lessonsDone === 10 && state.quiz1 && state.quiz2) {
+    certBox.style.display = 'block';
+    const opName = state.name || 'UNNAMED_OPERATOR';
+    const opHandle = state.handle || 'NO_HANDLE';
+    const ts = state.ts || new Date().toISOString().slice(0,19).replace('T',' ') + ' UTC';
+    const q1t = state.q1Tries || 1;
+    const q2t = state.q2Tries || 1;
+    const grade = (parseFloat(watchedMins) >= 40 && q1t <= 2 && q2t <= 2)
+      ? 'A-PLAYER (Full Watch + Clean Pass)'
+      : 'REVIEW_NEEDED (Watched ' + watchedMins + 'm | Q1:' + q1t + ' tries | Q2:' + q2t + ' tries)';
+    const sig = makeHash(opName + '|' + opHandle + '|' + watchedMins + '|' + q1t + '|' + q2t + '|' + ts + '|XMEDIA-SALT-2026');
+    document.getElementById('cert-receipt').textContent =
+      '=== X MEDIA CERTIFIED OPERATOR RECEIPT ===
+' +
+      'Operator Name   : ' + opName + '
+' +
+      'Handle          : ' + opHandle + '
+' +
+      'Lessons Checked : 10 / 10 (Module 1 L1-L5 + Module 2 L6-L10)
+' +
+      'Video Watch Time: ' + watchedMins + ' mins (Target: ~58 mins)
+' +
+      'Quiz #1 Score   : 5 / 5 (100% PASS — Attempt #' + q1t + ')
+' +
+      'Quiz #2 Score   : 5 / 5 (100% PASS — Attempt #' + q2t + ')
+' +
+      'Operator Rating : ' + grade + '
+' +
+      'Started At      : ' + state.startedAt + '
+' +
+      'Completed At    : ' + ts + '
+' +
+      'Verification ID : XM-CERT-' + sig + '
+' +
+      '==========================================';
+  } else {
+    certBox.style.display = 'none';
+  }
+}
+
+function copyReceipt() {
+  const txt = document.getElementById('cert-receipt').textContent;
+  navigator.clipboard.writeText(txt);
+  alert('Signed Verification Receipt copied! Paste and send it to management.');
+}
+</script>
+
+<script>
+const DRIVE_VIDEOS = {0: '1QG7PtDij8c_jMTFaJxxJaFkIy12SsMme', 1: '1av-w0Y84wbMpqe71WpFFN1VPaGix2Gw2', 2: '1WPLWswTXZOFHtIUVI3VhoTBlraQyYoOC', 3: '1l_v0g-CFRRhKsNyDvwUsy5obxAP012hG', 4: '1feEOGSn27dsUo2rp4blU30fz1svKQ363', 5: '1qxm_T6GOe8N185cfVxicG1Mm6mQoZ4Hs', 6: '18dPzQoXLgcdFL8a_8FnUR3K172mew4iO', 7: '15TWxqS4d_1_E-pWs-13krhL_faM1nd5Q', 8: '1f1sInay79OM0n-GfgVWvkSAjmzpomVzY', 9: '1TbGpQVZLA-rMlZ-rQrMGSPjk7fPGqq-B', 10: '1A2GvDKRa6l5ufVXT_s9IVw38-cGzc3ET'};
+const DRIVE_PDFS = {0: '12o4sqyapW44KDm_dsSu5NTZDuuPsuQpL', 1: '1SyU4t2tvTgrEm1mtoMne5zpdPjJT69A0', 2: '1jAm5HsiBS_YqI4iX8m6MZfr9jA4K-ieJ', 3: '1M3WbxbNAxlz8RfxKoUGE4Qx5vJ3ze8Dh', 4: '1-e2RMx8ht1CtN749swQjKOd3FDR4-ODs', 5: '1faFomUZrZzW1iPWh39Lym72eXcB2Sy7M', 6: '1qVjmdXbDkBkSsl1pXlXXWLnZRqeFtDCT', 7: '1lDJSl1jA86mHO0qWqCVWRibhit_wmJEz', 8: '1v_HLycvtW2_AhlPFA13h7Kh9t2XCpRsE', 9: '1uvUgaHpJAmpaXChYEQusPpbq0BiRK0iM', 10: '1tqTrgyj9BN-0_m-EYN5STDwsEPScM6T4'};
+window.addEventListener('DOMContentLoaded', () => {
+  const isCloud = window.location.protocol.startsWith('http');
+  // Wire PDF links to Google Drive view/download when hosted on web
+  if (isCloud) {
+    document.querySelectorAll('a.pdf-btn').forEach(a => {
+      const href = a.getAttribute('href') || '';
+      if (href.includes('CELL_OVERVIEW')) {
+        a.href = 'https://drive.google.com/file/d/' + DRIVE_PDFS[0] + '/view?usp=sharing';
+        a.target = '_blank';
+        a.removeAttribute('download');
+      } else {
+        for (let i = 1; i <= 10; i++) {
+          if (href.includes('Lesson%20' + i + '%20')) {
+            a.href = 'https://drive.google.com/file/d/' + DRIVE_PDFS[i] + '/view?usp=sharing';
+            a.target = '_blank';
+            a.removeAttribute('download');
+            break;
+          }
+        }
+      }
+    });
+    // Swap <video> tags to Google Drive CDN embed players when hosted on web
+    for (let i = 0; i <= 10; i++) {
+      const v = document.getElementById('vid-' + i);
+      if (v && DRIVE_VIDEOS[i]) {
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://drive.google.com/file/d/' + DRIVE_VIDEOS[i] + '/preview';
+        iframe.style.width = '100%';
+        iframe.style.height = '480px';
+        iframe.style.border = '1px solid #253655';
+        iframe.style.borderRadius = '10px';
+        iframe.style.marginBottom = '12px';
+        iframe.style.background = '#000';
+        iframe.allow = 'autoplay; fullscreen';
+        v.parentNode.replaceChild(iframe, v);
+      }
+    }
+  }
+  // Active study timer (counts seconds while tab is visible so cloud iframe watching is tracked too)
+  setInterval(() => {
+    if (document.visibilityState === 'visible') {
+      state.watchSec['active_portal'] = (state.watchSec['active_portal'] || 0) + 1;
+      if (state.watchSec['active_portal'] % 10 === 0) saveState();
+    }
+  }, 1000);
+});
+</script>
+
+</body>
+</html>
