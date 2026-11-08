@@ -300,9 +300,55 @@ window.COURSE = {
     {
       id: "m3", title: "Module 3", subtitle: "Posting, Carousels & Stories",
       lessons: [
-        { id: "3.1", title: "Posting with Zernio", length: "", video: "" },
-        { id: "3.2", title: "Photo Carousels", length: "", video: "" },
-        { id: "3.3", title: "Stories & Highlights", length: "", video: "" }
+        {
+          id: "3.1", title: "Daily Stories & Building Highlights (\"Life\" & \"Me\")", length: "5:54",
+          video: "1qR0aaMlrBIfCz_eueaciNipPti1fP6KJ", pdf: "1GJMX5cp9xyXhzSu-joUJt8fSFBbGqfty",
+          learn: ["When and where to post Daily Stories (2:00 PM UK Time, IG Only)", "How to post a \"Life\" Story straight from Pinterest without Grok", "How to generate a \"Me\" Story in Grok and build the Life 💕 & Me 💕 Highlights"],
+          steps: [
+            "<b>Daily Schedule (Day 1 to Day 7):</b> Post <b>1 Story per phone every day around 2:00 PM UK Time</b> across all 10 phones. Post Stories on <b>Instagram ONLY</b> — never on Facebook Stories (only Instagram has Highlights).",
+            "<b>Alternate Days (Day 1–7):</b> <b>Day 1, 3, 5, 7 = \"Life\" Story</b> (lifestyle shot). <b>Day 2, 4, 6 = \"Me\" Story</b> (photo of our girl). Once an account gets traction, add the <b>Link 🔗</b> Highlight.",
+            "<b>How to Post a \"Life\" Story (No Grok Needed):</b> Search your phone's niche on <b>Pinterest</b> (e.g. <code>gym girl</code>). Pick an aesthetic lifestyle photo where <b>her face is not shown</b> and her body proportions match our creator. Download it and drop it straight into <code>xmediaops.com/clean</code>.",
+            "<b>How to Post a \"Me\" Story (Grok Skill):</b> Pick a niche photo on <b>Pinterest</b> where she is showing herself off. Drop it into your Cell's Grok <b>CAROUSELS + STORIES</b> skill and tell Grok: <i>\"For Elsa, make sure the inputs are good and the face stays good, for the Story Me\"</i>. Download the generated image and clean it on <code>xmediaops.com/clean</code>.",
+            "<b>Upload, Add Viral US Girl Song & Save to Highlight:</b> Upload the <b>CLEANED</b> image via AliRemote <b>Content</b>, open Instagram and select <b>Story</b> (not feed post). Add a <b>viral US girl song</b> with lyrics (e.g. Sabrina Carpenter), post to Your Story, then tap <b>Highlight</b> and save it to <b>Life 💕</b> or <b>Me 💕</b> (always include a cute emoji)."
+          ],
+          rule: "Post 1 Story every day at <b>2:00 PM UK Time on Instagram ONLY</b>: <b>Life</b> Stories come straight from Pinterest (no face, no Grok) → Clean; <b>Me</b> Stories go Pinterest → Grok → Clean.",
+          check: [
+            { q: "Where and when do you post Daily Stories during the first 7 days of a new account?",
+              options: ["Around 2:00 PM UK Time on Instagram Story ONLY (never Facebook Story)", "At midnight on Facebook Story only", "Once a month on YouTube Shorts"],
+              answer: 0, why: "Stories are posted daily around 2:00 PM UK Time on Instagram only, because only Instagram has profile Highlights." },
+            { q: "On Day 1, 3, 5 and 7 you post a \"Life\" Story. Do you need to run it through Grok?",
+              options: ["No — pick a Pinterest niche photo that does not show her face (with matching body proportions) and clean it directly on xmediaops.com/clean", "Yes — generate 10 images in Grok first", "Post it without cleaning"],
+              answer: 0, why: "Life Stories don't show her face, so you take them straight from Pinterest, clean them on xmediaops.com/clean, and post." },
+            { q: "After posting a Story on Instagram with a viral US girl song, what must you always do?",
+              options: ["Save it to the matching Highlight with an emoji (Life 💕 or Me 💕)", "Delete the Story immediately", "Share it to your personal Facebook"],
+              answer: 0, why: "Saving every Story into Life 💕 and Me 💕 builds the account's permanent profile Highlights." }
+          ]
+        },
+        {
+          id: "3.2", title: "Photo Carousels (Pinned Creators → Grok → Clean → IG & FB Page)", length: "3:55",
+          video: "13eDuj8Kjz2Ck7-z2ZitF17aTHHauE38R", pdf: "14QLGofANnd9KH3EdEsovxcknWeXdlxVB",
+          learn: ["When to post Carousels (4:00 PM UK Time every other day from Day 3)", "How to pull Carousel slides from your Pinned Creators and clone them in Grok", "How to post Carousels manually on BOTH Instagram and your Facebook Page"],
+          steps: [
+            "<b>Every-Other-Day Schedule (Day 3, 5, 7, 9...):</b> Post <b>1 Photo Carousel per phone around 4:00 PM UK Time every other day</b> (10 Carousels total across your Cell, finished before 5:00 PM UK Time).",
+            "<b>Pull from Pinned Creators:</b> Open <code>xmediaops.com/clone</code> and click one of your <b>Pinned Creators</b> for that phone's niche (e.g. a Beach creator for <b>P5 · Beach Skits</b>). Download the 2–4 slides of a high-performing Carousel using the <b>Instagram Downloader Chrome extension</b>.",
+            "<b>Regenerate in Grok (CAROUSELS + STORIES Skill):</b> Drop the downloaded slides into your Grok <b>CAROUSELS + STORIES</b> skill and type: <i>\"Regenerate this for me with Elsa\"</i> (and ask for a short chill girly caption if not already output).",
+            "<b>Clean & Put the Best Close-Up First:</b> Download the generated slides and clean every slide on <code>xmediaops.com/clean</code>. When uploading to the phone via AliRemote <b>Content</b>, always put the <b>most engaging close-up shot as Slide 1</b>.",
+            "<b>Post on BOTH Instagram & Facebook Page:</b> On <b>Instagram</b>, post the Carousel on the matching niche account with <b>USA viral audio</b> and the Grok caption. On <b>Facebook</b>, first make sure you are switched into your <b>Facebook Page account</b> (never your main personal account!), then post the exact same cleaned Carousel slides with audio and caption."
+          ],
+          rule: "Post 1 Carousel per phone every other day at <b>4:00 PM UK Time</b> on <b>BOTH Instagram and the Facebook Page</b> (never the personal FB profile), with the most engaging close-up as <b>Slide 1</b>.",
+          check: [
+            { q: "When do you start posting Photo Carousels, and how often?",
+              options: ["From Day 3 onwards, every other day (Day 3, 5, 7, 9...) around 4:00 PM UK Time", "On Day 1 before warming up", "Only once a month"],
+              answer: 0, why: "Carousels start on Day 3 after warm-up and run every other day around 4:00 PM UK Time (10 Carousels across your 10 phones)." },
+            { q: "Which slide must always go first (Slide 1) when posting a Carousel?",
+              options: ["The most engaging close-up photo of the creator", "A blurry background photo", "An uncleaned raw file"],
+              answer: 0, why: "Slide 1 hooks the viewer in the feed, so always lead with the most engaging close-up shot." },
+            { q: "Where do you manually post every cleaned Photo Carousel?",
+              options: ["On BOTH Instagram and the Facebook Page (making sure you switched into the Page, not your main personal FB account)", "Only on YouTube Shorts", "On your personal Facebook profile"],
+              answer: 0, why: "The exact same cleaned Carousel goes on both Instagram and the creator's Facebook Page with USA viral audio and the Grok caption." }
+          ]
+        },
+        { id: "3.3", title: "Posting with Zernio", length: "", video: "" }
       ]
     }
   ],
@@ -320,6 +366,8 @@ window.COURSE = {
     { lesson: "2.3", q: "A generated Reel looks good, but has no sound when you play it. What do you do?", options: ["Press Skip immediately", "Press Approve", "Download it"], answer: 0 },
     { lesson: "2.4", q: "You see the red error “The Atlas balance is too low”. What do you do?", options: ["Message your manager on Telegram straight away", "Keep clicking Make Reel", "Approve broken videos"], answer: 0 },
     { lesson: "2.5", q: "Which video belongs on P4 · Talking Heads?", options: ["One solo girl speaking directly to the camera in her own voice", "A silent video with music and text on screen", "Two girls dancing"], answer: 0 },
+    { lesson: "3.1", q: "How do you post a \"Life\" Story on Day 1, 3, 5 and 7 around 2:00 PM UK Time?", options: ["Pick a Pinterest niche photo with no face shown → clean on xmediaops.com/clean → post to IG Story ONLY with a US girl song → save to Life 💕", "Post it on Facebook Stories without cleaning", "Generate a Reel on xmediaops.com/clone"], answer: 0 },
+    { lesson: "3.2", q: "When posting a Photo Carousel at 4:00 PM UK Time every other day on Facebook, what must you check first?", options: ["That you are switched into the Facebook Page account (never the main personal account)", "That you deleted the Instagram post first", "That the images are uncleaned"], answer: 0 },
     { lesson: "0", q: "From Day 3, how many Reels does your whole Cell post per day?", options: ["30 (3 per phone)", "10", "300"], answer: 0 },
     { lesson: "0", q: "You are stuck and forgot a step. What is the first thing you do?", options: ["Open that lesson's written guide (PDF)", "Guess and keep going", "Make a new account"], answer: 0 }
   ]
