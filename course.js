@@ -8,7 +8,7 @@
   Results sheet:  paste your Google Apps Script web app URL into `resultsUrl` (see README.md).
 */
 window.COURSE = {
-  version: "2026-11-07",
+  version: "2026-11-08",
   resultsUrl: "",              // Google Sheet webhook (README.md step 2). Empty = results wait safely in the browser.
   resultsKey: "xm-academy-7741", // must match KEY in google-sheet-script.gs
   watchRatio: 0.7,             // VA must spend 70% of the video length on a lesson before Continue unlocks
@@ -178,112 +178,121 @@ window.COURSE = {
       id: "m2", title: "Module 2", subtitle: "Make the Reels (Day 3 onwards)",
       lessons: [
         {
-          id: "2.1", title: "How the Clone Factory Works", length: "1:01",
-          video: "18dPzQoXLgcdFL8a_8FnUR3K172mew4iO", pdf: "1qVjmdXbDkBkSsl1pXlXXWLnZRqeFtDCT",
-          learn: ["How Reels are made now", "Your 3 jobs as a Systems Manager"],
+          id: "2.1", title: "The 5 Phone Formats, Account Info & Niche Branding", length: "5:30",
+          video: "1QARw_rWEP4DHzCAi85AstvIpm2XoH6Ul", pdf: "18tdLvYnOQOVbBng4oq39CTPuJKeKC7jg",
+          learn: ["How the 5 phones per model are split by niche", "How to use Account Info and save Account Details", "Why Gym phones never copy actual workouts"],
           steps: [
-            "You do <b>not</b> write prompts. The Clone Factory (<b>xmediaops.com/clone</b>) does it for you.",
-            "You give it 2 things: <b>an outfit</b> (front + back photo) and <b>a link to a winning Reel</b>.",
-            "It makes the video. You check it. If it is good, press <b>Approve</b> — it is upscaled and cleaned automatically.",
-            "Your 3 jobs: <b>make outfits</b>, <b>find winning Reels</b>, <b>check quality fast</b>."
+            "Open <b>xmediaops.com/clone</b>. Each model has <b>5 phones</b>, and each phone has its own niche:",
+            "<b>P1 · Santa Trends</b> (red outfits & holiday trends) · <b>P2 · Gym Skits</b> · <b>P3 · Upscale Beauty</b> · <b>P4 · Talking Heads</b> · <b>P5 · Beach Skits</b>.",
+            "Click <b>Account Info</b> on the phone you are working on. It shows that phone's exact rules, bio ideas, profile picture rules and what to avoid.",
+            "Fill in <b>Account Details</b> (Gmail, Instagram, Facebook Page, YouTube and Bio) and click <b>Save</b> so every phone's login stays inside the dashboard.",
+            "Every outfit, profile picture and Reel on a phone must match that phone's niche (for example: red outfits on P1, gym sets on P2, beach fits on P5).",
+            "<b>Important for P2 · Gym Skits:</b> only pick funny skits, personality videos or posing in gym clothes. <b>Never</b> clone actual workouts or gym machines — AI breaks on workout machines."
           ],
-          rule: "Always ask yourself: is this good enough to post on this account?",
+          rule: "Always check <b>Account Info</b> first so your outfit and Reel match that phone's exact niche.",
           check: [
-            { q: "Which 2 things do you give the Clone Factory?",
-              options: ["An outfit (front + back) and a link to a winning Reel", "A written prompt and a song", "Only a photo of the model"],
-              answer: 0, why: "Outfit + Reel link is all it needs." },
-            { q: "What happens when you press Approve?",
-              options: ["The video is upscaled and cleaned automatically", "The video is deleted", "You must clean it yourself"],
-              answer: 0, why: "Approve does the upscale and the cleaning for you." }
+            { q: "You are working on P2 · Gym Skits. Which Reel should you pick?",
+              options: ["A solo girl in gym clothes doing a cute or funny skit", "A girl lifting heavy weights on a gym machine", "A girl in a wedding dress"],
+              answer: 0, why: "AI cannot render gym machines or workouts cleanly — only use solo skits and posing in gym clothes." },
+            { q: "Where do you check a phone's niche rules and save its Gmail, Instagram, Facebook and YouTube logins?",
+              options: ["Inside Account Info / Account Details on xmediaops.com/clone", "In a random text file on your desktop", "You do not need to save them"],
+              answer: 0, why: "Account Info shows the phone's rules and saves all logins in one place." },
+            { q: "How are the 5 phones for each model set up?",
+              options: ["P1 Santa Trends, P2 Gym Skits, P3 Upscale Beauty, P4 Talking Heads, P5 Beach Skits", "All 5 phones post the exact same videos", "Only 1 phone posts Reels"],
+              answer: 0, why: "Each of the 5 phones tests a proven niche for that model." }
           ]
         },
         {
-          id: "2.2", title: "Making Outfits (Pinterest → Grok)", length: "2:22",
-          video: "15TWxqS4d_1_E-pWs-13krhL_faM1nd5Q", pdf: "1lDJSl1jA86mHO0qWqCVWRibhit_wmJEz",
-          learn: ["How to pick an outfit that fits the phone", "How to find many outfits fast on Pinterest", "How to make the front and back photos in Grok"],
+          id: "2.2", title: "Hunting Outlier Reels, Pinned Creators & Grok Outfits", length: "5:08",
+          video: "1n1k8VAp5jLLTQuxA-Ytafcz07xN6EHAU", pdf: "1UQBAN1WOGq0zQ8Wq1IrZf5f1zGSawQWp",
+          learn: ["How to use Pinned creators and spot outlier Reels", "How to make safe outfits in Grok Outfit Builder", "Why you never clone the same Reel twice"],
           steps: [
-            "Check which phone you are making for. Each phone has its own style (for example: Gym, Christmas, Cafe & walks).",
-            "On Pinterest, search <b>cute girl</b> (or the style, for example <b>gym girl</b>).",
-            "Click a good outfit. Pinterest then shows many similar outfits under it.",
-            "Right-click the outfit → <b>Copy Image</b>.",
-            "Open Grok (Outfit Maker), paste the image and write: <b>make the outfit references</b>",
-            "Grok makes 2 photos of our model in that outfit: <b>front</b> and <b>back</b>. Save both."
+            "Look at the <b>Pinned:</b> bar at the top of the phone tab. Click a pinned creator to open her Instagram Reels, or click <b>+</b> to pin a new creator you find.",
+            "Scroll her Reels and look for an <b>outlier winner</b> — a Reel with way more views than her normal posts (for example <b>50k, 200k, 400k+</b> when her normal is 10k).",
+            "Check that it is <b>only her</b>, her <b>face is clear</b>, and the video fits the phone's niche.",
+            "On Pinterest, copy an outfit photo that matches the phone's niche and the video's setting.",
+            "In Grok <b>OUTFIT BUILDER</b>, paste the photo and write: <b>make the outfit references</b>. Download the <b>front</b> and <b>back</b> photos.",
+            "<b>Beach safety rule (P5):</b> never paste bare bikini photos into Grok (Grok will block or ban it). Pick cute <b>beach cover-ups, sarongs or beach skirt sets</b>.",
+            "Upload the front and back photos in <b>Outfits → + Add Outfit</b>, select the outfit, paste the Reel link and click <b>Make Reel</b>."
           ],
-          rule: "The outfit must match the phone's style.",
+          rule: "You <b>can</b> reuse 1 good outfit on many different Reels, but <b>NEVER clone the same Reel twice</b> with different outfits (that gets accounts banned).",
           check: [
-            { q: "You copied an outfit from Pinterest. What do you write in Grok?",
-              options: ["make the outfit references", "make a video", "describe this girl"],
-              answer: 0, why: "That exact sentence starts the Outfit Maker." },
-            { q: "Phone 2 is the Gym phone. Which outfit fits?",
-              options: ["A gym set (sports bra and leggings)", "A Christmas jumper", "A wedding dress"],
-              answer: 0, why: "Every outfit must match the phone's style." }
+            { q: "Can you use the same Reel link twice if you change the outfit?",
+              options: ["No — never clone the same Reel more than once", "Yes — you can use the same Reel 5 times", "Yes — if it has over 1M views"],
+              answer: 0, why: "Posting the same Reel motion twice triggers duplicate-content bans. Reuse outfits, never Reels." },
+            { q: "You need an outfit for P5 · Beach Skits. What do you paste into Grok?",
+              options: ["A cute beach cover-up or beach skirt set", "A bare micro-bikini photo", "A winter coat"],
+              answer: 0, why: "Bare bikinis get blocked by Grok. Beach cover-ups and skirt sets look great and pass safely." },
+            { q: "A creator normally gets 12k views. Which Reel do you copy?",
+              options: ["A 185k-view Reel with only her and a clear face", "An 11k-view Reel", "A 300k-view Reel with 3 people talking"],
+              answer: 0, why: "Pick solo outlier Reels that beat her normal views by 3x–10x." }
           ]
         },
         {
-          id: "2.3", title: "Finding Winning Reels", length: "3:11",
-          video: "1f1sInay79OM0n-GfgVWvkSAjmzpomVzY", pdf: "1v_HLycvtW2_AhlPFA13h7Kh9t2XCpRsE",
-          learn: ["How to spot a Reel that did much better than normal", "The 3 rules every Reel must pass"],
+          id: "2.3", title: "Quality Control, Audio Check & One-Click Approve", length: "3:30",
+          video: "1l2ptzHnUdzHsBSqmtWOosk6ajUoNyRcc", pdf: "1yr_K6zOKCKejCI9KGaAIqOZjL3M9RVOP",
+          learn: ["How to check every Reel like a real fan", "Why sound must always be ON", "What Approve and Make it anyway do"],
           steps: [
-            "Find a real, good-quality girl account on Instagram. Open her <b>Reels</b> tab.",
-            "Look at the views. Most of her Reels get about the same views (for example 20k–80k). <b>Skip those.</b>",
-            "Look for one Reel with far more views than the rest (for example 150k, 220k, 437k). That is a <b>winner</b>.",
-            "<b>Rule 1 — only her:</b> no other person in the video.",
-            "<b>Rule 2 — her face can be seen.</b>",
-            "<b>Rule 3 — calm, natural vibe</b> (showing her look or outfit). No comedy skits. No talking videos.",
-            "If it passes all 3 rules, copy the link."
+            "When a Reel finishes generating, play it from start to finish with <b>sound ON</b>.",
+            "Ask yourself: <b>does this look like a real, attractive video of our girl?</b> Check her face, eyes, body, outfit and background.",
+            "<b>No sound?</b> If a Reel has no audio, press <b>Skip</b> straight away. Never approve a silent Reel.",
+            "<b>Warning popup (“more than one person”):</b> only click <b>Make it anyway</b> if you already watched the Reel and confirmed she is the main person in focus.",
+            "If the video looks real and has working audio, click <b>Approve</b>.",
+            "<b>Approve</b> automatically upscales the video to <b>1080p iPhone Clean</b>, strips all AI metadata and sends it to Zernio."
           ],
-          rule: "Only clone winners that pass all 3 rules.",
+          rule: "Never approve a Reel without watching the full video with <b>sound ON</b>.",
           check: [
-            { q: "Her Reels get about 30k views. One has 400k, but a man walks in halfway. Do you clone it?",
-              options: ["No — another person is in the video", "Yes — it has the most views", "Yes — the man will be removed"],
-              answer: 0, why: "The AI can copy the wrong person." },
-            { q: "Her normal is about 40k views. Which Reel is the best choice?",
-              options: ["220k views, only her, face visible, calm outfit video", "45k views, only her, outfit video", "300k views, comedy skit with her friend"],
-              answer: 0, why: "It is far above her normal AND passes all 3 rules." }
+            { q: "A generated Reel looks great visually, but when you play it there is no sound. What do you do?",
+              options: ["Press Skip immediately", "Press Approve anyway", "Upload it without sound"],
+              answer: 0, why: "Reels without audio fail on Instagram, Facebook and YouTube Shorts." },
+            { q: "What happens automatically when you press Approve?",
+              options: ["It upscales to 1080p iPhone Clean, strips metadata and queues for Zernio", "It deletes the video", "You still have to clean the file manually"],
+              answer: 0, why: "One click on Approve handles upscaling, metadata cleaning and scheduling." }
           ]
         },
         {
-          id: "2.4", title: "Using the Clone Factory", length: "2:05",
-          video: "1TbGpQVZLA-rMlZ-rQrMGSPjk7fPGqq-B", pdf: "1uvUgaHpJAmpaXChYEQusPpbq0BiRK0iM",
-          learn: ["How to add an outfit", "How to make a Reel", "How to check it and press Approve"],
+          id: "2.4", title: "Ramping to 30 Reels a Day, Pinning & Error Handling", length: "6:07",
+          video: "1XTVt1BpS1_z7ThP-R3e-MVEpGbIU1YpI", pdf: "15dtWAVpuRicBwjnTRNGqT8MAMs9QtL39",
+          learn: ["How to ramp from 1 Reel per phone to 30 Reels a day", "When to Skip broken renders without redoing them", "What to do if an error pops up"],
           steps: [
-            "Go to <b>xmediaops.com/clone</b> → <b>Outfits</b>.",
-            "Give the outfit a simple name (for example: white cute fit). Add the front photo and the back photo → <b>Add Outfit</b>.",
-            "Pick the outfit, paste the Reel link → <b>Make Reel</b>.",
-            "If it warns “more than one person”, only press <b>Make it anyway</b> if you already checked she is the main person.",
-            "While it is making the video, go and find your next Reel.",
-            "Watch the result with <b>sound ON</b>. Check the face, body, outfit and that it looks good.",
-            "Good → <b>Approve</b>. Bad → <b>Skip</b> (next lesson)."
+            "On your first day making Reels, start with <b>1 Reel per phone</b> to learn the flow. Then ramp up to <b>3 Reels per phone = 30 Reels a day</b> across all 10 phones.",
+            "Every time you find a great creator for a phone, click <b>+</b> on the <b>Pinned:</b> bar and save her `@username`. Build <b>10–15 pinned creators per phone</b>.",
+            "Do not wait for one video to finish. Queue Reels across Phone 1, Phone 2, Phone 3, Phone 4 and Phone 5 at the same time.",
+            "<b>When a render comes out broken</b> (weird background animal/person, warped face, or something silly like shoes in a sauna): press <b>Skip</b> and pick a <b>different</b> Reel. Never waste time re-running the same broken Reel.",
+            "<b>Red error box (“The Atlas balance is too low”):</b> stop and message your manager on Telegram straight away so they can top up the balance."
           ],
-          rule: "Always watch the full result with sound on before you press Approve.",
+          rule: "Broken render = press <b>Skip</b> and move to a new Reel. Never re-run a broken video.",
           check: [
-            { q: "The result is ready. What do you do before pressing Approve?",
-              options: ["Watch it fully with sound on and check face, body and outfit", "Press Approve straight away", "Download it and edit it"],
-              answer: 0, why: "You are the quality check. Nothing goes out unchecked." },
-            { q: "It warns “more than one person”. You already checked she is clearly the main person. What do you do?",
-              options: ["Press Make it anyway", "Close the website", "Change the outfit"],
-              answer: 0, why: "Only after you have checked it yourself." }
+            { q: "A generated Reel looks weird because a horse in the background glitched. What do you do?",
+              options: ["Press Skip and pick a different clean Reel", "Try making the exact same Reel 3 more times", "Press Approve"],
+              answer: 0, why: "If the source video confuses the AI once, it will fail again. Skip it and pick a cleaner Reel." },
+            { q: "You see a red error saying “The Atlas balance is too low”. What do you do?",
+              options: ["Message your manager on Telegram straight away so they can top it up", "Keep clicking Make Reel 20 times", "Delete the outfits"],
+              answer: 0, why: "Your manager tops up the Atlas credit balance in seconds once you tell them." },
+            { q: "Once ramped up, what is your daily target for a 10-phone Cell?",
+              options: ["3 Reels per phone = 30 Approved Reels per day", "1 Reel per week", "100 Reels on Phone 1 only"],
+              answer: 0, why: "Every phone gets 3 Approved Reels per day (30 total across 10 phones)." }
           ]
         },
         {
-          id: "2.5", title: "Working Fast & Skipping Bad Videos", length: "5:07",
-          video: "1A2GvDKRa6l5ufVXT_s9IVw38-cGzc3ET", pdf: "1tqTrgyj9BN-0_m-EYN5STDwsEPScM6T4",
-          learn: ["How to work on many Reels at the same time", "What to do when a video comes out bad"],
+          id: "2.5", title: "Hunting Talking Head Accounts & Cross-Pinning Niches", length: "5:21",
+          video: "1yBkDn6BSQbn8z1Rxb7lRvFLfX7IOgDl-", pdf: "1VF8xpXpG9FDWafuubxSL4qBKsOcx7yja",
+          learn: ["How to find real Talking Head Reels for P4", "How to tell a true Talking Head from a lip-sync", "How to cross-pin creators to other phones while scrolling"],
           steps: [
-            "Never wait. While one video is being made, make the next outfit and find the next Reel.",
-            "Skip accounts that look AI, are low quality, or do not fit the style.",
-            "Found a good account for another phone (for example a gym account)? <b>Save it for that phone.</b>",
-            "Bad result (wrong person, broken face)? <b>Do not try to fix it. Press Skip.</b>",
-            "Go back to the account, pick another clean Reel and press Make Reel."
+            "<b>P4 · Talking Heads</b> is only for videos where <b>one girl is speaking directly to the camera in her own voice</b> (usually with captions on screen).",
+            "<b>Not a Talking Head:</b> if she is just smiling with text on screen and music, or mouthing/lip-syncing someone else's audio, <b>do not</b> use it on P4.",
+            "When you find a girl who speaks to the camera and gets big outlier views (<b>100k, 500k, 700k+</b>), click <b>+</b> on P4 to pin her.",
+            "Copy her winning talking Reel, pair it with a clean casual outfit in P4 and click <b>Make Reel</b>.",
+            "<b>Cross-pin while you hunt:</b> while scrolling Instagram, if you see a great Gym girl, Upscale Beauty girl or Beach girl, switch to that phone tab (`P2`, `P3` or `P5`) and pin her with <b>+</b> so you never lose a good account."
           ],
-          rule: "Bad video = Skip and replace. Never spend time fixing it.",
+          rule: "On <b>P4 · Talking Heads</b>, the girl must actually be speaking with her own voice — never silent text or music lip-syncs.",
           check: [
-            { q: "The video copied a woman in the background instead of our model. What do you do?",
-              options: ["Press Skip and make a new Reel from a clean video", "Try to fix it for 30 minutes", "Approve it anyway"],
-              answer: 0, why: "You cannot fix it. Skipping and replacing is fastest." },
-            { q: "You are looking for cafe videos and find a great gym account. What do you do?",
-              options: ["Save it for the Gym phone and keep looking", "Ignore it", "Use it on the cafe phone"],
-              answer: 0, why: "Good accounts are valuable. Save them for the right phone." }
+            { q: "Which video belongs on P4 · Talking Heads?",
+              options: ["1 solo girl speaking directly to the camera in her own voice with 500k views", "A girl dancing silently with text on the screen", "Two people interviewing each other on the street"],
+              answer: 0, why: "P4 is strictly for solo talking-to-camera videos where she speaks in her own voice." },
+            { q: "While hunting for P4 Talking Heads, you spot an amazing Gym Skit creator. What do you do?",
+              options: ["Switch to P2 · Gym Skits, click + to pin her for later, then continue on P4", "Ignore her because you are on P4", "Use her gym video on P4"],
+              answer: 0, why: "Cross-pinning builds your creator library on every phone without extra work." }
           ]
         }
       ]
@@ -306,10 +315,11 @@ window.COURSE = {
     { lesson: "1.4", q: "Grok made a great profile picture. What is the very next step?", options: ["Clean it on xmediaops.com/clean", "Upload it with the Content button", "Post it on Instagram"], answer: 0 },
     { lesson: "1.5", q: "It is Day 2. You made YouTube Shorts on Day 1. Can you connect it to Zernio today?", options: ["No — YouTube needs 3 days of warm-up", "Yes", "Yes, if you scroll for 1 hour"], answer: 0 },
     { lesson: "1.4", q: "Which Instagram bio is correct?", options: ["20 | Florida 🌴 and one short cute line", "A long paragraph about AI", "Your real name and your country"], answer: 0 },
-    { lesson: "2.3", q: "Her Reels have 25k, 30k, 28k and 310k views. Which one is the winner?", options: ["The 310k Reel", "All four", "The 25k Reel"], answer: 0 },
-    { lesson: "2.3", q: "A Reel has 500k views, but her face is hidden the whole time. What do you do?", options: ["Skip it", "Clone it"], answer: 0 },
-    { lesson: "2.2", q: "Phone 1 is the Christmas phone. Which outfit do you pick?", options: ["A red Christmas outfit", "A gym set", "A bikini"], answer: 0 },
-    { lesson: "2.4", q: "The result looks good but the sound does not match her mouth. What do you do?", options: ["Skip it and make a new one", "Approve it"], answer: 0 },
+    { lesson: "2.1", q: "On P2 · Gym Skits, which video must you NEVER clone?", options: ["Actual workouts or girls using gym machines", "A cute solo skit in gym clothes", "A girl posing in a gym set"], answer: 0 },
+    { lesson: "2.2", q: "Can you reuse 1 good outfit across multiple Reels, or reuse 1 Reel with multiple outfits?", options: ["Reuse outfits across different Reels — NEVER clone the same Reel twice", "Clone the same Reel 5 times with different outfits", "Never reuse outfits"], answer: 0 },
+    { lesson: "2.3", q: "A generated Reel looks good, but has no sound when you play it. What do you do?", options: ["Press Skip immediately", "Press Approve", "Download it"], answer: 0 },
+    { lesson: "2.4", q: "You see the red error “The Atlas balance is too low”. What do you do?", options: ["Message your manager on Telegram straight away", "Keep clicking Make Reel", "Approve broken videos"], answer: 0 },
+    { lesson: "2.5", q: "Which video belongs on P4 · Talking Heads?", options: ["One solo girl speaking directly to the camera in her own voice", "A silent video with music and text on screen", "Two girls dancing"], answer: 0 },
     { lesson: "0", q: "From Day 3, how many Reels does your whole Cell post per day?", options: ["30 (3 per phone)", "10", "300"], answer: 0 },
     { lesson: "0", q: "You are stuck and forgot a step. What is the first thing you do?", options: ["Open that lesson's written guide (PDF)", "Guess and keep going", "Make a new account"], answer: 0 }
   ]
